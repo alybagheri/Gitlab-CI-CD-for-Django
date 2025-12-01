@@ -1,0 +1,27 @@
+stages:
+    - test
+    - build
+    - deploy
+
+
+test:
+  stage: test
+  script:
+    - echo "Test1 ...!"
+
+test-job1:
+  stage: test
+  script:
+    - echo "Test2 ....!"
+build-1:
+  stage: build
+  needs:
+    - test
+  script:
+    - echo "is build now...!"
+
+
+deploy:
+  stage: deploy
+  script:
+    - echo "Job Done...!"
