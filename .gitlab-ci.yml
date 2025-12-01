@@ -39,6 +39,7 @@ deploy_prod:
   stage: deploy-prod
   environment:
     name: prod
+  when: manual
   script:
     - docker compose pull
     - docker compose down
