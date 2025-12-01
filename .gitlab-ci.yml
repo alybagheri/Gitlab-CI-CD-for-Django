@@ -2,7 +2,8 @@ stages:
   - build
   - test
   - push
-  - deploy
+  - deploy_dev
+  - deploy-prod
   
 
 before_script:
@@ -24,17 +25,22 @@ push:
   script: 
     - docker push "$CI_REGISTRY_IMAGE":"$CI_COMMIT_REF_NAME"
 
-deploy:
-  stage: deploy
+deploy_dev:
+  stage: deploy-dev
+  environment:
+    name: dev
   script:
     - docker compose pull
     - docker compose down
     - docker compose up -d
     - echo "This job successfuly done..."
 
-#after_script:
-#    - echo "CI_REGISTRY: $CI_REGISTRY" \ 
-#      echo "CI_REGISTRY_IMAGE: $CI_REGISTRY_IMAGE" \ 
-#      echo "CI_REGISTRY_USER: $CI_REGISTRY_USER" \ 
-#      echo "CI_REGISTRY_PASSWORD: $CI_REGISTRY_PASSWORD" \
-  # this is for test
+deploy_prod:
+  stage: deploy-prod
+  environment:
+    name: prod
+  script:
+    - docker compose pull
+    - docker compose down
+    - docker compose up -d
+    - echo "This job successfuly done..."
