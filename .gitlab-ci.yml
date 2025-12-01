@@ -1,6 +1,7 @@
 stages:
   - build
   - test
+  - lint
   - push
   - deploy-dev
   - deploy-prod
