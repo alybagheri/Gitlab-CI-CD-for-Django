@@ -30,6 +30,7 @@ deploy:
     - docker compose pull
     - docker compose down
     - docker compose up -d
+    - echo "This job successfuly done..."
 
 #after_script:
 #    - echo "CI_REGISTRY: $CI_REGISTRY" \ 
