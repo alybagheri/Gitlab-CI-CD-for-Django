@@ -1,27 +1,51 @@
 stages:
-    - test
-    - build
-    - deploy
+  - build
+  - test
+  - push
+  - deploy-dev
+  - deploy-prod
+  
 
+before_script:
+  #- docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+  - echo "$CI_REGISTRY_PASSWORD" | docker login -u "$CI_REGISTRY_USER" --password-stdin "$CI_REGISTRY"
+
+build:
+  stage: build
+  script:
+    - docker build --tag="$CI_REGISTRY_IMAGE":"$CI_COMMIT_REF_NAME" .
 
 test:
   stage: test
   script:
-    - echo "Test1 ...!"
+    - docker compose run simple_app python manage.py test
+  
+push:
+  stage: push
+  script: 
+    - docker push "$CI_REGISTRY_IMAGE":"$CI_COMMIT_REF_NAME"
 
-test-job1:
-  stage: test
+deploy_dev:
+  stage: deploy-dev
+  environment:
+    name: dev
+  tags:
+    - dev
   script:
-    - echo "Test2 ....!"
-build-1:
-  stage: build
-  needs:
-    - test
-  script:
-    - echo "is build now...!"
+    - docker compose pull
+    - docker compose down
+    - docker compose up -d
+    - echo "This job successfuly done..."
 
-
-deploy:
-  stage: deploy
+deploy_prod:
+  stage: deploy-prod
+  environment:
+    name: prod
+  when: manual
+  tags:
+    - prod
   script:
-    - echo "Job Done...!"
+    - docker compose pull
+    - docker compose down
+    - docker compose up -d
+    - echo "This job successfuly done..."
