@@ -2,7 +2,7 @@ stages:
   - build
   - test
   - push
-  - deploy_dev
+  - deploy-dev
   - deploy-prod
   
 
