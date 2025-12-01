@@ -18,7 +18,7 @@ build:
 test:
   stage: test
   script:
-    - docker-compose run simple_app python manage.py test
+    - docker compose run simple_app python manage.py test
   
 push:
   stage: push
