@@ -1,0 +1,10 @@
+[init]
+	defaultBranch = none
+[fetch]
+	recurseSubmodules = false
+[credential]
+	interactive = never
+[gc]
+	autoDetach = false
+[include]
+	path = /root/my_project_1/simple_app/builds/lPprajm-r/0/developers/simple_app.tmp/.gitlab-runner.ext.conf

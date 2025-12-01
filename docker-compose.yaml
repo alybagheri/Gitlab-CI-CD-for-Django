@@ -3,5 +3,7 @@ version: "3"
 services:
   simple_app:
     build: .
+    environment:
+      DEBUG: $DEBUG
     ports:
       - 8000:8000
