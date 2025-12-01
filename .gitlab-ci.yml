@@ -1,4 +1,5 @@
 stages:
+  - merge requests
   - build
   - test
   - push
@@ -9,6 +10,13 @@ stages:
 before_script:
   #- docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
   - echo "$CI_REGISTRY_PASSWORD" | docker login -u "$CI_REGISTRY_USER" --password-stdin "$CI_REGISTRY"
+
+merge requests:
+  stage: merge requests
+  rules:
+    - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
+  script:
+    - echo "Only on merge requests ...!"
 
 build:
   stage: build
