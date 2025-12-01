@@ -68,7 +68,7 @@ new_release:
       when: always
   release:
     tag: "$CI_COMMIT_TAG"
-    description: "Release for "$CI_COMMIT_TAG""
+    description: "Release for "$CI_COMMIT_TAG"
 
 deploy_dev:
   stage: deploy-dev
